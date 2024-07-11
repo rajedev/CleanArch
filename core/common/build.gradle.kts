@@ -50,4 +50,6 @@ dependencies {
     implementation(libs.hilt)
     ksp(libs.hilt.compiler)
     implementation(libs.kotlinx.serialization.json)
+
+    testImplementation(libs.junit)
 }
