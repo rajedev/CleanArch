@@ -23,6 +23,7 @@ import androidx.compose.ui.unit.TextUnitType
 import androidx.compose.ui.unit.dp
 import com.app.cleararch.ui.theme.ClearArchTheme
 import com.app.presentation.feed_data.FeedViewModel
+import com.app.presentation.games.GamePowerViewModel
 import com.app.presentation.games.GameViewModel
 import com.app.presentation.pokemon.PokemonViewModel
 import com.app.presentation.pokemon_details.PokemonDetailViewModel
@@ -41,6 +42,7 @@ class MainActivity : ComponentActivity() {
             val pokemonDetailsViewModel: PokemonDetailViewModel by viewModels()
             val quotesViewModel by viewModels<QuotesViewModel>()
             val gameViewModel by viewModels<GameViewModel>()
+            val gamePowerViewModel by viewModels<GamePowerViewModel>()
             ClearArchTheme {
                 Scaffold(
                     topBar =
@@ -60,6 +62,7 @@ class MainActivity : ComponentActivity() {
                         pokemonDetailsViewModel,
                         gameViewModel,
                         quotesViewModel,
+                        gamePowerViewModel,
                         modifier = Modifier.padding(innerPadding),
                     )
                 }
@@ -75,6 +78,7 @@ fun Greeting(
     pokemonDetailsViewModel: PokemonDetailViewModel,
     gameViewModel: GameViewModel,
     quotesViewModel: QuotesViewModel,
+    gamePowerViewModel: GamePowerViewModel,
     modifier: Modifier = Modifier
 ) {
     quotesViewModel.getQuotes()
@@ -84,6 +88,7 @@ fun Greeting(
     pokemonListViewModel.getPokemonList()
     pokemonDetailsViewModel.getPokemonDetails()
     gameViewModel.getGameListData()
+    gamePowerViewModel.getGamePowerList()
     Column(
         modifier = modifier,
         horizontalAlignment = Alignment.Start

@@ -1,6 +1,8 @@
 package com.app.di
 
+import com.app.domains.repository.games.GamePowerRepository
 import com.app.domains.repository.games.GamesRepository
+import com.app.domains.usecase.games.GamePowerUseCase
 import com.app.domains.usecase.games.GamesListUseCase
 import dagger.Module
 import dagger.Provides
@@ -21,5 +23,10 @@ class GameUseCaseModule {
     @Provides
     fun providesGameUseCase(gamesRepository: GamesRepository): GamesListUseCase {
         return GamesListUseCase(gamesRepository)
+    }
+
+    @Provides
+    fun providesGamePowerUseCase(gamePowerRepository: GamePowerRepository): GamePowerUseCase {
+        return GamePowerUseCase(gamePowerRepository)
     }
 }

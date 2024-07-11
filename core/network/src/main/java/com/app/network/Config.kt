@@ -14,3 +14,6 @@ const val GAME_LIST = "games"
 
 const val QUOTES_END_POINT = "https://api.quotable.io/quotes/"
 const val QUOTES_RANDOM ="random"
+
+const val POWER_GAME_END_POINT = "https://www.gamerpower.com/api/"
+const val ALL_GAMES = "giveaways"
