@@ -51,9 +51,11 @@ android {
     }
     packaging {
         resources {
-            excludes += "/META-INF/{AL2.0,LGPL2.1}"
+            //excludes += "META-INF/*.version"
+            //excludes += "META-INF/**"
+            //excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
-        resources.excludes.add("META-INF/*")
+        //resources.excludes.add("META-INF/*")
     }
 }
 
