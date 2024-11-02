@@ -1,17 +1,20 @@
 [versions]
-agp = "8.4.1"
+compileSdk = "35"
+targetSdk = "35"
+minSdk = "24"
+agp = "8.4.2"
 kotlin = "2.0.0"
 kotlinKsp = "2.0.0-1.0.21"
-coreKtx = "1.13.1"
+coreKtx = "1.15.0"
 junit = "4.13.2"
-junitVersion = "1.1.5"
-espressoCore = "3.5.1"
-lifecycleRuntimeKtx = "2.8.1"
-activityCompose = "1.9.0"
-composeBom = "2024.05.00"
+junitVersion = "1.2.1"
+espressoCore = "3.6.1"
+lifecycleRuntimeKtx = "2.8.7"
+activityCompose = "1.9.3"
+composeBom = "2024.10.01"
 appcompat = "1.7.0"
 material = "1.12.0"
-jetbrainsKotlinJvm = "1.9.23"
+jetbrainsKotlinJvm = "2.0.0"
 retrofit = "2.9.0"
 retrofit-kotlinx-adapter = "1.0.0"
 okhttp = "4.12.0"
@@ -60,7 +63,8 @@ compose = [
     "androidx-ui",
     "androidx-ui-graphics",
     "androidx-ui-tooling-preview",
-    "androidx-material3"
+    "androidx-material3",
+    "androidx-ui-tooling"
 ]
 network-retrofit = [
     "retrofit",

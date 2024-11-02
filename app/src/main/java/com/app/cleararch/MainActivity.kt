@@ -44,18 +44,16 @@ class MainActivity : ComponentActivity() {
             val gameViewModel by viewModels<GameViewModel>()
             val gamePowerViewModel by viewModels<GamePowerViewModel>()
             ClearArchTheme {
-                Scaffold(
-                    topBar =
-                    {
-                        TopAppBar(
-                            title = {
-                                Text(text = "Test")
-                            }, colors = TopAppBarDefaults.topAppBarColors(
-                                containerColor = MaterialTheme.colorScheme.primaryContainer,
-                                titleContentColor = MaterialTheme.colorScheme.primary
-                            )
+                Scaffold(topBar = {
+                    TopAppBar(
+                        title = {
+                            Text(text = "Test")
+                        }, colors = TopAppBarDefaults.topAppBarColors(
+                            containerColor = MaterialTheme.colorScheme.primaryContainer,
+                            titleContentColor = MaterialTheme.colorScheme.primary
                         )
-                    }) { innerPadding ->
+                    )
+                }) { innerPadding ->
                     Greeting(
                         feedViewModel,
                         pokemonListViewModel,
@@ -65,6 +63,7 @@ class MainActivity : ComponentActivity() {
                         gamePowerViewModel,
                         modifier = Modifier.padding(innerPadding),
                     )
+
                 }
             }
         }
@@ -90,8 +89,7 @@ fun Greeting(
     gameViewModel.getGameListData()
     gamePowerViewModel.getGamePowerList()
     Column(
-        modifier = modifier,
-        horizontalAlignment = Alignment.Start
+        modifier = modifier, horizontalAlignment = Alignment.Start
     ) {
         Text(
             text = "Hello ",
@@ -104,18 +102,3 @@ fun Greeting(
         )
     }
 }
-
-
-/*
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    ClearArchTheme {
-        Greeting(
-            "Android",
-            feedViewModel = feedViewModel,
-            pokemonListViewModel = pokemonListViewModel,
-            pokemonDetailsViewModel = pokemonDetailsViewModel
-        )
-    }
-}*/
