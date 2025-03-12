@@ -88,16 +88,16 @@ class MainActivity : ComponentActivity() {
                         )
                     )
                 }) { innerPadding ->
-                     Greeting(
-                         feedViewModel,
-                         pokemonListViewModel,
-                         pokemonDetailsViewModel,
-                         gameViewModel,
-                         quotesViewModel,
-                         gamePowerViewModel,
-                         modifier = Modifier.padding(innerPadding),
-                     )
-                   // MainScreen(Modifier.padding(innerPadding))
+                    Greeting(
+                        feedViewModel,
+                        pokemonListViewModel,
+                        pokemonDetailsViewModel,
+                        gameViewModel,
+                        quotesViewModel,
+                        gamePowerViewModel,
+                        modifier = Modifier.padding(innerPadding),
+                    )
+                    // MainScreen(Modifier.padding(innerPadding))
                 }
             }
         }
