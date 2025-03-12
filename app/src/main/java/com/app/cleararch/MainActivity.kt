@@ -88,7 +88,7 @@ class MainActivity : ComponentActivity() {
                         )
                     )
                 }) { innerPadding ->
-                    /* Greeting(
+                     Greeting(
                          feedViewModel,
                          pokemonListViewModel,
                          pokemonDetailsViewModel,
@@ -96,8 +96,8 @@ class MainActivity : ComponentActivity() {
                          quotesViewModel,
                          gamePowerViewModel,
                          modifier = Modifier.padding(innerPadding),
-                     )*/
-                    MainScreen(Modifier.padding(innerPadding))
+                     )
+                   // MainScreen(Modifier.padding(innerPadding))
                 }
             }
         }
