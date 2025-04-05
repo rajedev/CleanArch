@@ -72,8 +72,9 @@ dependencies {
     implementation(project(":data"))
     implementation(project(":presentation"))
     implementation(libs.hilt)
+    implementation(libs.androidx.navigation.compose)
     ksp(libs.hilt.compiler)
-
+    implementation(libs.kotlinx.serialization.json)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)

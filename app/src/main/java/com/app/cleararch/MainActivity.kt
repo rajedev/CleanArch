@@ -54,7 +54,7 @@ import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.TextUnitType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.app.cleararch.ui.theme.ClearArchTheme
+import com.app.cleararch.ui.theme.CleanArchTheme
 import com.app.presentation.feed_data.FeedViewModel
 import com.app.presentation.games.GamePowerViewModel
 import com.app.presentation.games.GameViewModel
@@ -77,7 +77,7 @@ class MainActivity : ComponentActivity() {
             val quotesViewModel by viewModels<QuotesViewModel>()
             val gameViewModel by viewModels<GameViewModel>()
             val gamePowerViewModel by viewModels<GamePowerViewModel>()
-            ClearArchTheme {
+            CleanArchTheme {
                 Scaffold(topBar = {
                     TopAppBar(
                         title = {
@@ -394,7 +394,7 @@ fun ShowTexts(content: @Composable () -> Unit) {
 @Composable
 @Preview(showBackground = true, showSystemUi = true)
 fun DefaultPreview() {
-    ClearArchTheme {
+    CleanArchTheme {
         MainScreen(Modifier.padding(10.dp))
     }
 }

@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">ClearArch</string>
+    <string name="title_activity_multi_screen">MultiScreenActivity</string>
 </resources>
