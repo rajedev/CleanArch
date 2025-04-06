@@ -52,17 +52,25 @@ private fun Content(paddingValues: PaddingValues, navController: NavHostControll
             .padding(paddingValues)
             .fillMaxSize()
     ) {
+
+        val navigateToScreen2 = {
+            navController.navigate(Screens.Route2.route)
+        }
+
+        val popBackStack = {
+            navController.popBackStack()
+        }
         NavHost(
             navController = navController,
             startDestination = Screens.Route1,
         ) {
-            composable<Screens.Route1> { Screen1(navController) }
-           // composable<Screens.Route2> { Screen2(navController) }
-           /* composable(route = Screens.Route1.route){
-                Screen1(navController)
-            }*/
-            composable(route = Screens.Route2.route){
-                Screen2(navController)
+            composable<Screens.Route1> { Screen1(navigateToScreen2) }
+            // composable<Screens.Route2> { Screen2(navController) }
+            /* composable(route = Screens.Route1.route){
+                 Screen1(navController)
+             }*/
+            composable(route = Screens.Route2.route) {
+                Screen2(popBackStack)
             }
         }
     }
@@ -93,14 +101,14 @@ fun Header() {
 }
 
 @Composable
-fun Screen1(navController: NavHostController) {
+fun Screen1(navigateToScreen2: () -> Unit) {
     Column(
         modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
         Button(onClick = {
-            navController.navigate(Screens.Route2.route)
+            navigateToScreen2()
         }) {
             Text("Screen 1")
         }
@@ -108,10 +116,10 @@ fun Screen1(navController: NavHostController) {
 }
 
 @Composable
-fun Screen2(navController: NavHostController) {
+fun Screen2(popBackStack: () -> Boolean) {
     Column(verticalArrangement = Arrangement.Center) {
         Button(onClick = {
-            navController.popBackStack()
+            popBackStack()
         }) {
             Text("Screen 2")
         }
@@ -121,10 +129,10 @@ fun Screen2(navController: NavHostController) {
 @Serializable
 sealed class Screens(val route: String) {
     @Serializable
-   data object Route1 : Screens("test")
+    data object Route1 : Screens("test")
 
-   // @Serializable
-   data object Route2 : Screens("Screen 2")
+    // @Serializable
+    data object Route2 : Screens("Screen 2")
 }
 
 @Preview(showBackground = true)
