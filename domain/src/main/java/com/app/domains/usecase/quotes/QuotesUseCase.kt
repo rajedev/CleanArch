@@ -1,5 +1,6 @@
 package com.app.domains.usecase.quotes
 
+import com.app.common.di.RetrofitInstance
 import com.app.common.utils.UiEvents
 import com.app.domains.model.quotes.Quotes
 import com.app.domains.repository.quotes.QuoteRepository
@@ -17,7 +18,7 @@ import javax.inject.Inject
  *
  * This handles the Quotes Use Cases
  */
-class QuotesUseCase @Inject constructor(private val quoteRepository: QuoteRepository) {
+class QuotesUseCase @Inject constructor(@RetrofitInstance private val quoteRepository: QuoteRepository) {
 
     operator fun invoke(noOfQuotes:Int) : Flow<UiEvents<List<Quotes>>> = flow {
         emit(UiEvents.Loading())
