@@ -32,6 +32,7 @@ import androidx.compose.material3.TextField
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
@@ -54,7 +55,10 @@ import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.TextUnitType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.app.cleararch.ui.theme.CleanArchTheme
+import com.app.common.utils.UiEvents
 import com.app.presentation.feed_data.FeedViewModel
 import com.app.presentation.games.GamePowerViewModel
 import com.app.presentation.games.GameViewModel
@@ -74,9 +78,12 @@ class MainActivity : ComponentActivity() {
             val feedViewModel: FeedViewModel by viewModels()
             val pokemonListViewModel: PokemonViewModel by viewModels()
             val pokemonDetailsViewModel: PokemonDetailViewModel by viewModels()
-            val quotesViewModel by viewModels<QuotesViewModel>()
+            // val quotesViewModel by viewModels<QuotesViewModel>()
             val gameViewModel by viewModels<GameViewModel>()
             val gamePowerViewModel by viewModels<GamePowerViewModel>()
+            val quotesViewModel: QuotesViewModel = hiltViewModel()
+
+
             CleanArchTheme {
                 Scaffold(topBar = {
                     TopAppBar(
@@ -114,14 +121,8 @@ fun Greeting(
     gamePowerViewModel: GamePowerViewModel,
     modifier: Modifier = Modifier
 ) {
-    quotesViewModel.getQuotes()
-    feedViewModel.createPost()
-    feedViewModel.getPosts()
-    feedViewModel.getComments()
-    pokemonListViewModel.getPokemonList()
-    pokemonDetailsViewModel.getPokemonDetails()
-    gameViewModel.getGameListData()
-    gamePowerViewModel.getGamePowerList()
+    val state = quotesViewModel.quotesData.collectAsStateWithLifecycle().value
+    val state1 = quotesViewModel.quotesData.collectAsState().value
     Column(
         modifier = modifier, horizontalAlignment = Alignment.Start
     ) {
@@ -134,6 +135,30 @@ fun Greeting(
                 .background(MaterialTheme.colorScheme.tertiary)
                 .padding(10.dp),
         )
+        Button(onClick = {
+            quotesViewModel.getQuotesRandom()
+           /* feedViewModel.createPost()
+            feedViewModel.getPosts()
+            feedViewModel.getComments()
+            pokemonListViewModel.getPokemonList()
+            pokemonDetailsViewModel.getPokemonDetails()
+            gameViewModel.getGameListData()
+            gamePowerViewModel.getGamePowerList()*/
+        }) { Text("Initiate API") }
+
+        when (state) {
+            is UiEvents.Loading -> {
+                Log.d("Quotes", "Quotes Data Loading")
+            }
+
+            is UiEvents.Success -> {
+                Log.d("Quotes", "Quotes data ${state.data}")
+            }
+
+            is UiEvents.Error -> {
+                Log.d("Quotes", "Quotes API Error ${state.message}")
+            }
+        }
     }
 }
 
@@ -395,6 +420,13 @@ fun ShowTexts(content: @Composable () -> Unit) {
 @Preview(showBackground = true, showSystemUi = true)
 fun DefaultPreview() {
     CleanArchTheme {
-        MainScreen(Modifier.padding(10.dp))
+        Greeting(
+            feedViewModel = hiltViewModel(),
+            pokemonListViewModel = hiltViewModel(),
+            pokemonDetailsViewModel = hiltViewModel(),
+            gameViewModel = hiltViewModel(),
+            quotesViewModel = hiltViewModel(),
+            gamePowerViewModel = hiltViewModel()
+        )
     }
 }

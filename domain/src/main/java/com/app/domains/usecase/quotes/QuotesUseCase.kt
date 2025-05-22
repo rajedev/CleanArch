@@ -20,10 +20,14 @@ import javax.inject.Inject
  */
 class QuotesUseCase @Inject constructor(@RetrofitInstance private val quoteRepository: QuoteRepository) {
 
-    operator fun invoke(noOfQuotes:Int) : Flow<UiEvents<List<Quotes>>> = flow {
+    operator fun invoke(noOfQuotes  :Int) : Flow<UiEvents<List<Quotes>>> = flow {
         emit(UiEvents.Loading())
         emit(UiEvents.Success(quoteRepository.getQuotes(noOfQuotes)))
     }.catch {
         emit(UiEvents.Error(it.message.toString()))
+    }.flowOn(Dispatchers.IO)
+
+    fun invoke1(noOfQuotes:Int) : Flow<List<Quotes>> = flow {
+        emit(quoteRepository.getQuotes(noOfQuotes))
     }.flowOn(Dispatchers.IO)
 }
