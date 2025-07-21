@@ -32,6 +32,7 @@ import androidx.compose.material3.TextField
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
@@ -122,7 +123,13 @@ fun Greeting(
     modifier: Modifier = Modifier
 ) {
     val state = quotesViewModel.quotesData.collectAsStateWithLifecycle().value
-    val state1 = quotesViewModel.quotesData.collectAsState().value
+    //val state1 = quotesViewModel.quotesData.collectAsState().value
+    /*val input = remember {
+        mutableStateOf(TextFieldValue("0"))
+    }*/
+    var input by remember {
+        mutableStateOf(TextFieldValue("0"))
+    }
     Column(
         modifier = modifier, horizontalAlignment = Alignment.Start
     ) {
@@ -135,31 +142,75 @@ fun Greeting(
                 .background(MaterialTheme.colorScheme.tertiary)
                 .padding(10.dp),
         )
+
+        /*TextField(
+            value = input.value.text,
+            singleLine = true,
+            keyboardOptions = KeyboardOptions(
+                keyboardType = KeyboardType.Number,
+                imeAction = ImeAction.Done
+            ),
+            onValueChange = {
+                input.value = TextFieldValue(it)
+                //input.intValue = it.toIntOrNull() ?: 0
+            }
+        )*/
+        StatelessInput(
+            input = input,
+            onValueChange = {
+                input = it
+            }
+        )
+
         Button(onClick = {
-            quotesViewModel.getQuotesRandom()
-           /* feedViewModel.createPost()
-            feedViewModel.getPosts()
-            feedViewModel.getComments()
-            pokemonListViewModel.getPokemonList()
-            pokemonDetailsViewModel.getPokemonDetails()
-            gameViewModel.getGameListData()
-            gamePowerViewModel.getGamePowerList()*/
+            quotesViewModel.getQuotesRandom(
+              //  input.value.text.toIntOrNull() ?: 3
+                input.text.toIntOrNull() ?: 3
+            )
+            /* feedViewModel.createPost()
+             feedViewModel.getPosts()
+             feedViewModel.getComments()
+             pokemonListViewModel.getPokemonList()
+             pokemonDetailsViewModel.getPokemonDetails()
+             gameViewModel.getGameListData()
+             gamePowerViewModel.getGamePowerList()*/
         }) { Text("Initiate API") }
 
-        when (state) {
-            is UiEvents.Loading -> {
-                Log.d("Quotes", "Quotes Data Loading")
-            }
+        LaunchedEffect(state) {
+            when (state) {
+                is UiEvents.Loading -> {
+                    Log.d("Quotes", "Quotes Data Loading")
+                }
 
-            is UiEvents.Success -> {
-                Log.d("Quotes", "Quotes data ${state.data}")
-            }
+                is UiEvents.Success -> {
+                    Log.d("Quotes", "Quotes data ${state.data}")
+                    quotesViewModel.reset()
+                }
 
-            is UiEvents.Error -> {
-                Log.d("Quotes", "Quotes API Error ${state.message}")
+                is UiEvents.Error -> {
+                    Log.d("Quotes", "Quotes API Error ${state.message}")
+                }
             }
         }
     }
+}
+
+@Composable
+fun StatelessInput(
+    input: TextFieldValue,
+    onValueChange: (TextFieldValue) -> Unit,
+) {
+    TextField(
+        value = input,
+        singleLine = true,
+        keyboardOptions = KeyboardOptions(
+            keyboardType = KeyboardType.Number,
+            imeAction = ImeAction.Done
+        ),
+        onValueChange = {
+            onValueChange(it)
+        }
+    )
 }
 
 @Composable
