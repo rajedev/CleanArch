@@ -16,17 +16,10 @@
         android:theme="@style/Theme.ClearArch"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
-
         <activity
-            android:name=".multiscreens.MultiScreenActivity"
-            android:exported="false"
-            android:label="@string/title_activity_multi_screen"
-            android:theme="@style/Theme.ClearArch" />
-
-        <activity
-            android:name=".MainActivity"
+            android:name=".practice.UserActivity"
             android:exported="true"
-            android:label="@string/app_name"
+            android:label="@string/title_activity_user"
             android:theme="@style/Theme.ClearArch">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -34,5 +27,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".multiscreens.MultiScreenActivity"
+            android:exported="false"
+            android:label="@string/title_activity_multi_screen"
+            android:theme="@style/Theme.ClearArch" />
     </application>
+
 </manifest>
