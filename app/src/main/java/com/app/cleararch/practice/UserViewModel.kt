@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import kotlin.random.Random
 
 /**
  * Copyright (c) 2026 /LiveRamp, All rights reserved.
@@ -29,7 +30,10 @@ class UserViewModel @Inject constructor() : ViewModel() {
         viewModelScope.launch {
             delay(2000)
             val username = listOfUsers.random()
-            val followers = listOfFollowers.shuffled().take(5).toMutableList()
+            //val followers = listOfFollowers.shuffled().take(5).toMutableList()
+            val followers =
+                listOfFollowers.slice(0..Random.nextInt(0,
+                    listOfFollowers.size-1)).toMutableList()
             //val user = User(name = username, followersList = followers)
             /* _userState.update {
                  it.copy(name = username, followersList = followers)
